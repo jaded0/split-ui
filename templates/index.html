@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split Chat UI - Prompt Comparison</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Prompt Comparison Tool</h1>
+            <p>Compare responses from two different prompts side-by-side</p>
+        </header>
+
+        <div class="split-container">
+            <!-- Left Panel -->
+            <div class="chat-panel" id="left-panel">
+                <div class="panel-header">
+                    <h2>Context</h2>
+                    <button class="clear-btn" onclick="clearChat('left')">Clear</button>
+                </div>
+                <div class="messages" id="left-messages"></div>
+            </div>
+
+            <!-- Right Panel -->
+            <div class="chat-panel" id="right-panel">
+                <div class="panel-header">
+                    <h2>Knowledge</h2>
+                    <button class="clear-btn" onclick="clearChat('right')">Clear</button>
+                </div>
+                <div class="messages" id="right-messages"></div>
+            </div>
+        </div>
+
+        <div class="input-container">
+            <div class="input-wrapper">
+                <textarea
+                    id="user-input"
+                    placeholder="Type your message here..."
+                    rows="3"
+                ></textarea>
+                <button id="send-btn" onclick="sendMessage()">Send to Both</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
