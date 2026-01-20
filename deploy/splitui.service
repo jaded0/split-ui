@@ -1,0 +1,27 @@
+[Unit]
+Description=Split UI - Prompt Comparison Tool
+After=network.target
+
+[Service]
+Type=notify
+User=splitui
+Group=splitui
+WorkingDirectory=/opt/splitui
+Environment="PATH=/opt/splitui/venv/bin"
+EnvironmentFile=/opt/splitui/.env
+ExecStart=/opt/splitui/venv/bin/gunicorn --config gunicorn.conf.py app:app
+ExecReload=/bin/kill -s HUP $MAINPID
+Restart=on-failure
+RestartSec=5
+KillMode=mixed
+TimeoutStopSec=30
+PrivateTmp=true
+NoNewPrivileges=true
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=splitui
+
+[Install]
+WantedBy=multi-user.target
