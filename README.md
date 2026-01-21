@@ -246,12 +246,38 @@ sudo systemctl restart splitui
 - OpenAI API key
 - OpenAI Python SDK 2.15.0 or higher (the Responses API requires version 2.0+)
 
+## Model Architectures
+
+### Context Model
+
+The "Context" model uses a **context-stuffing approach** where the system prompt is loaded with most of the information available on the church website. This includes church details, staff information, service times, ministries, and other relevant content directly embedded in the prompt.
+
+In addition to the stuffed system prompt, this model has access to RAG (Retrieval-Augmented Generation) capabilities through:
+- **Pastor Cheryl's sermons** - A searchable archive of sermon transcripts
+- **The Bible** - Full Bible text for scripture references and quotations
+
+This approach prioritizes having comprehensive church-specific context readily available, supplemented by dynamic retrieval for sermons and scripture.
+
+### Knowledge Model
+
+The "Knowledge" model takes a **minimal prompt approach** with the system prompt focused primarily on:
+- **Response style guidelines** - How the assistant should communicate
+- **Guardrails** - Appropriate boundaries for responses
+
+The heavy lifting for content is done entirely through RAG with a vector store containing:
+- **The Bible** - Full Bible text for scripture references
+- **Basic Lutheran documents** - Core Lutheran theological texts and catechisms
+
+This approach relies more heavily on retrieval to provide relevant content, allowing for a more flexible and document-grounded response style.
+
+---
+
 ## Configuration
 
 The prompts are already configured in [app.py](app.py):
 
-- **Context** (prompt1): LutherBot - Christ the Servant Lutheran Church assistant
-- **Knowledge** (prompt2): Your second prompt configuration
+- **Context** (prompt1): LutherBot - Context-stuffed system prompt with RAG access to sermons and Bible
+- **Knowledge** (prompt2): Style/guardrails prompt with RAG access to Bible and Lutheran documents
 
 To change prompt configurations, edit the `PROMPTS` dictionary in [app.py](app.py):
 
